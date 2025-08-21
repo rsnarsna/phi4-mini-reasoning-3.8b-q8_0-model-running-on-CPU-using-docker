@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-phi4-mini
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    command: serve phi4-mini
+    deploy:
+      resources:
+        limits:
+          cpus: "2.5"       # Max 2.5 CPU cores
+          memory: 8g        # Max 8GB RAM
+        reservations:
+          cpus: "1.0"       # At least 1 CPU
+          memory: 4g        # At least 4GB RAM
+    # runtime: nvidia   # Optional if using GPU
+    # environment:
+    #   - NVIDIA_VISIBLE_DEVICES=0  # Use only GPU 0
+
+
+volumes:
+  ollama_models:
